@@ -26,7 +26,10 @@ public class PlayerManager : MonoBehaviour {
 		this.elementCisActive = false;
 	}
 
+	void spawnProjectile()
+	{
 
+	}
 
 	/////////////InputManager calling functions//////////////
 
