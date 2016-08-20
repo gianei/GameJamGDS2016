@@ -84,8 +84,11 @@ public class ProjectileController : MonoBehaviour {
             Debug.Log(coll.gameObject.GetComponent<EnemyController>().Type);
 
             if (coll.gameObject.GetComponent<EnemyController>().Type == elementList.getFirstActiveElement())
+            {
                 Destroy(coll.gameObject);
-
+                GameManager.Singleton.PlayerHitEnemyCorrect();
+            }
+          
 
         }
 

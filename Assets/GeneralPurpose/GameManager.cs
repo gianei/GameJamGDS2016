@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
     //Static singleton of GameManager which allows it to be accessed by any other script.
 
 
-    private Text _playerLifesText;
-    private int _playerLifes = 5;
+    private Text _playerScoresText;
+    private int _playerScore = 0;
 
     //Awake is always called before any Start functions
     void Awake()
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        _playerLifesText = GetComponentInChildren<Text>(true);
+        _playerScoresText = GetComponentInChildren<Text>(true);
     }
 
     // Update is called once per frame
@@ -46,11 +46,19 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void EnemyHitBase()
+    public void PlayerHitEnemyCorrect()
     {
-        _playerLifes--;
-        _playerLifesText.text = "Lifes: " + _playerLifes;
-        
-        Debug.Log("Enemy Hit!");
+        _playerScore++;
+        setScoreText();
+    }
+
+    private void setScoreText()
+    {
+        _playerScoresText.text = "Score: " + _playerScore;
+    }
+
+    public void EndGame()
+    {
+        Debug.Log("End!");
     }
 }

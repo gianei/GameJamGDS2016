@@ -13,6 +13,8 @@ public class PlayerManager : MonoBehaviour {
 	float timeOfLastShot;
 	ElementList elements;
 
+    private int _lifes = 3;
+
 
     //Awake is always called before any Start functions
     void Awake()
@@ -112,5 +114,23 @@ public class PlayerManager : MonoBehaviour {
 		elementActivationRendererList [4].color = activeElementColors [2];
 
 	}
+
+
+    public void LoseALife()
+    {
+        _lifes--;
+
+        SpriteRenderer[] lifeSprites = transform.FindChild("Lifes").GetComponentsInChildren<SpriteRenderer>();
+        if (_lifes == 2)
+            lifeSprites[2].enabled = false;
+        if (_lifes == 1)
+            lifeSprites[1].enabled = false;
+        if (_lifes == 0)
+            lifeSprites[0].enabled = false;
+        if (_lifes < 0)
+            GameManager.Singleton.EndGame();
+
+
+    }
 
 }

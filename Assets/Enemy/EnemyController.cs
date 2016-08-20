@@ -62,7 +62,7 @@ public class EnemyController : MonoBehaviour {
         if (coll.gameObject.tag == "Base")
         {
             Destroy(gameObject);
-            GameManager.Singleton.EnemyHitBase();
+            PlayerManager.Singleton.LoseALife();
         }
 
     }
