@@ -3,6 +3,7 @@ using System.Collections;
 
 public class EnemyController : MonoBehaviour {
     public float Speed = 15f;
+    public float _scaleIncrement = 0.005f;
 
     private Vector2 direction = new Vector2(0, -1);
     private Rigidbody2D Rigidbody;
@@ -10,11 +11,16 @@ public class EnemyController : MonoBehaviour {
 
     private Element.Type _type;
 
+    private float _scale = 0;
+    
+
 
     // Use this for initialization
     void Start () {
         Rigidbody = GetComponent<Rigidbody2D>();
         Rigidbody.velocity = direction * Speed;
+        
+        gameObject.transform.localScale = Vector3.zero;
 
         SpriteRenderer = GetComponent<SpriteRenderer>();
         int color = Random.Range(0, 3);
@@ -40,6 +46,12 @@ public class EnemyController : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    void FixedUpdate()
+    {
+        _scale += _scaleIncrement;
+        gameObject.transform.localScale = Vector3.one * _scale;
+    }
 
     void OnCollisionEnter2D(Collision2D coll)
     {
