@@ -2,11 +2,12 @@ using UnityEngine;
 using System.Collections;
 
 public class EnemyController : MonoBehaviour {
-    public float Speed = 15f;
-    public float _scaleIncrement = 0.005f;
+    public float InitialSpeed = 0.001f;
+    public float SpeedChange = 2;
+    public float ScaleChange = 0.004f;
 
     private Vector2 direction = new Vector2(0, -1);
-    private Rigidbody2D Rigidbody;
+    private Rigidbody2D _rigidbody;
     private SpriteRenderer SpriteRenderer;
 
     public ElementType Type { get; private set; }
@@ -17,8 +18,8 @@ public class EnemyController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Rigidbody = GetComponent<Rigidbody2D>();
-        Rigidbody.velocity = direction * Speed;
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _rigidbody.velocity = direction * InitialSpeed;
         
         gameObject.transform.localScale = Vector3.zero;
 
@@ -44,13 +45,16 @@ public class EnemyController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
 	
 	}
 
     void FixedUpdate()
     {
-        _scale += _scaleIncrement;
+        _scale += ScaleChange;
         gameObject.transform.localScale = Vector3.one * _scale;
+
+        _rigidbody.AddForce(direction * SpeedChange);
     }
 
     void OnCollisionEnter2D(Collision2D coll)
