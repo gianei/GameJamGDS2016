@@ -13,7 +13,7 @@ public class ProjectileController : MonoBehaviour {
 	ElementList elementList;
 	private Rigidbody2D _rigidBody;
 
-    private float _scale = 1;
+    private float _scale = 0.7f;
 
     static public void StartNew(GameObject projectilePrefab,Vector3 projectileStartingPoint, Vector2 projectileDirection, ElementList elementList)
 	{
