@@ -30,13 +30,19 @@ public class ElementList {
 		{
 		case ElementType.A:
 			this.elementActivationList [0] = true;
+			this.elementActivationList [1] = false;
+			this.elementActivationList [2] = false;
 			break;
 
 		case ElementType.B:
+			this.elementActivationList [0] = false;
 			this.elementActivationList [1] = true;
+			this.elementActivationList [2] = false;
 			break;
 
 		case ElementType.C:
+			this.elementActivationList [0] = false;
+			this.elementActivationList [1] = false;
 			this.elementActivationList [2] = true;
 			break;
 
@@ -51,14 +57,20 @@ public class ElementList {
 		{
 		case ElementType.A:
 			this.elementActivationList [0] = !this.elementActivationList [0];
+			this.elementActivationList [1] = false;
+			this.elementActivationList [2] = false;
 			break;
 
 		case ElementType.B:
 			this.elementActivationList [1] = !this.elementActivationList [1];
+			this.elementActivationList [0] = false;
+			this.elementActivationList [2] = false;
 			break;
 
 		case ElementType.C:
 			this.elementActivationList [2] = !this.elementActivationList [2];
+			this.elementActivationList [1] = false;
+			this.elementActivationList [0] = false;
 			break;
 
 		default:

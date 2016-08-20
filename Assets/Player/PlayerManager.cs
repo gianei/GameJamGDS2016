@@ -5,12 +5,13 @@ public class PlayerManager : MonoBehaviour {
 
     public static PlayerManager Singleton = null;
 
+	public GameObject elementActivationStatePanel;
     public GameObject projectilePrefab;
 	public Transform projectileSpawnPoint;
 	public float shotCooldown = 1f;
 
 	float timeOfLastShot;
-	ElementList activeElements;
+	ElementList elements;
 
 
     //Awake is always called before any Start functions
@@ -37,7 +38,7 @@ public class PlayerManager : MonoBehaviour {
     // Use this for initialization
     void Start () 
 	{
-		this.activeElements = new ElementList ();
+		this.elements = new ElementList ();
 		this.timeOfLastShot = -1;
 	}
 	
@@ -51,12 +52,12 @@ public class PlayerManager : MonoBehaviour {
 	{
 		//If any element is active, there the possibilite of firing a projectile, else not.
 		if ( (Time.time - this.timeOfLastShot) >= shotCooldown &&
-				this.activeElements.AtLeastOneElementIsActive()) 
+				this.elements.AtLeastOneElementIsActive()) 
 		{			
 
-			ProjectileController.StartNew(projectilePrefab, this.projectileSpawnPoint.position, projectileDirection, this.activeElements);
+			ProjectileController.StartNew(projectilePrefab, this.projectileSpawnPoint.position, projectileDirection, this.elements);
 			this.timeOfLastShot = Time.time;
-			this.activeElements.ResetElements ();
+			this.elements.ResetElements ();
 		}
 	}
 
@@ -70,11 +71,46 @@ public class PlayerManager : MonoBehaviour {
 		projectileDirection.Normalize ();
 
 		this.spawnProjectile (projectileDirection);
+		updateActivationPanel ();
 	}
 
 	public void SwitchElementActivation(ElementType elementTypeToBeSwitched)
 	{
-		this.activeElements.SwitchElementState (elementTypeToBeSwitched);
+		this.elements.SwitchElementState (elementTypeToBeSwitched);
+		updateActivationPanel ();
+	}
+
+	///////////// Interaction with the Element Activation State sprites //////////////////////
+
+	public void updateActivationPanel()
+	{
+		SpriteRenderer[] elementActivationRendererList = this.elementActivationStatePanel.GetComponentsInChildren<SpriteRenderer> ();
+		Color[] activeElementColors = new Color[3];
+		activeElementColors[0] = Color.black;
+		activeElementColors[1] = Color.black;
+		activeElementColors[2] = Color.black;
+
+		foreach (ElementType activeElement in this.elements.getActiveElements()) 
+		{
+			switch (activeElement) 
+			{
+			case ElementType.A:
+				activeElementColors [0] = Color.white;
+				break;
+			case ElementType.B:
+				activeElementColors [1] = Color.white;
+				break;
+			case ElementType.C:
+				activeElementColors [2] = Color.white;
+				break;
+			default:
+				break;
+			}
+		}
+		elementActivationRendererList [0].color = activeElementColors [0];
+		elementActivationRendererList [2].color = activeElementColors [1];
+		elementActivationRendererList [4].color = activeElementColors [2];
+
 	}
 
 }
