@@ -100,9 +100,9 @@ public class PlayerManager : MonoBehaviour {
 	{
 		SpriteRenderer[] elementActivationRendererList = this.elementActivationStatePanel.GetComponentsInChildren<SpriteRenderer> ();
 		Color[] activeElementColors = new Color[3];
-		activeElementColors [0] = Color.black;
-		activeElementColors [1] = Color.black;
-		activeElementColors [2] = Color.black;
+		activeElementColors [0] = new Color (8/255F, 40/255F, 48/255F);
+		activeElementColors [1] = new Color (8/255F, 40/255F, 48/255F);
+		activeElementColors [2] = new Color (8/255F, 40/255F, 48/255F);
 
 		foreach (ElementType activeElement in this.elements.getActiveElements()) 
 		{

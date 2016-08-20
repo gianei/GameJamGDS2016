@@ -37,15 +37,15 @@ public class ProjectileController : MonoBehaviour {
 		switch (colorTest) 
 		{
 		case ElementType.A:
-			spriteRenderer.color = Color.blue;
+			spriteRenderer.color = new Color(10/255f, 191/255f, 227/255f);
 			break;
 
 		case ElementType.B:
-			spriteRenderer.color = Color.red;
+			spriteRenderer.color =  new Color(240/255f, 144/255f, 0/255f);
 			break;
 
 		case ElementType.C:
-			spriteRenderer.color = Color.green;
+			spriteRenderer.color =  new Color(48/255f, 233/255f, 48/255f);
 			break;
 
 		default:

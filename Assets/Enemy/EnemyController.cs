@@ -28,15 +28,15 @@ public class EnemyController : MonoBehaviour {
         switch (color)
         {
             case 0:
-                SpriteRenderer.color = Color.blue;
+				SpriteRenderer.color = new Color(10/255f, 191/255f, 227/255f);
                 Type = ElementType.A;
                 break;
             case 1:
-                SpriteRenderer.color = Color.red;
+				SpriteRenderer.color = new Color(240/255f, 144/255f, 0/255f);
                 Type = ElementType.B;
                 break;
             case 2:
-                SpriteRenderer.color = Color.green;
+				SpriteRenderer.color = new Color(48/255f, 233/255f, 48/255f);
                 Type = ElementType.C;
                 break;
         }
