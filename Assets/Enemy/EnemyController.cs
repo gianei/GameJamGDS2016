@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour {
     private Rigidbody2D Rigidbody;
     private SpriteRenderer SpriteRenderer;
 
-    private Element.Type _type;
+    private ElementType _type;
 
 
     // Use this for initialization
@@ -22,15 +22,15 @@ public class EnemyController : MonoBehaviour {
         {
             case 0:
                 SpriteRenderer.color = Color.blue;
-                _type = Element.Type.A;
+                _type = ElementType.A;
                 break;
             case 1:
                 SpriteRenderer.color = Color.red;
-                _type = Element.Type.B;
+                _type = ElementType.B;
                 break;
             case 2:
                 SpriteRenderer.color = Color.green;
-                _type = Element.Type.C;
+                _type = ElementType.C;
                 break;
         }
 

@@ -12,20 +12,22 @@ public class InputManager : MonoBehaviour {
         if (Input.GetButtonDown("ElementA"))
         {
             Debug.Log("ElementA");
+			playerManager.SwitchElementActivation (ElementType.A);
         }
         else if (Input.GetButtonDown("ElementB"))
         {
-            Debug.Log("ElementB");
+			Debug.Log("ElementB");
+			playerManager.SwitchElementActivation (ElementType.B);
         }
 		else if (Input.GetButtonDown("ElementC"))
         {
-            Debug.Log("ElementC");
+			Debug.Log("ElementC");
+			playerManager.SwitchElementActivation (ElementType.C);
 		}
 		else if (Input.GetButtonDown("Fire"))
 		{
 			Debug.Log("Fire");
-			Debug.Log(Input.mousePosition);
-			playerManager.FireProjectile (Input.mousePosition);	
+			playerManager.FireProjectile (Camera.main.ScreenToWorldPoint (Input.mousePosition));	
 		}
     }
 }
