@@ -56,7 +56,6 @@ public class ProjectileController : MonoBehaviour {
 		}
 			
 
-		Vector2 trailPosition = new Vector2 (gameObject.transform.position.x, gameObject.transform.position.y-2f);
 		GameObject trailInstantiation = (GameObject) Instantiate (trail, gameObject.transform.position, Quaternion.FromToRotation (new Vector2 (1f, 0f), this.projectileDirection));
 		trailInstantiation.transform.parent = gameObject.transform;
 		
