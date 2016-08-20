@@ -152,6 +152,7 @@ public class PlayerManager : MonoBehaviour {
             lifeSprites[1].enabled = false;
         if (_lifes == 0)
             lifeSprites[0].enabled = false;
+            GameManager.Singleton.EndGame();
         if (_lifes < 0)
             GameManager.Singleton.EndGame();
 
