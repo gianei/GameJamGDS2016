@@ -4,12 +4,11 @@ using System.Collections;
 public class PlayerManager : MonoBehaviour {
 
     public static PlayerManager Singleton = null;
-
+	public Animator playerAnimator;
 	public GameObject elementActivationStatePanel;
     public GameObject projectilePrefab;
 	public Transform projectileSpawnPoint;
 	public float shotCooldown = 1f;
-
 
 	bool canShoot;
 	float timeOfLastShot;
@@ -45,6 +44,7 @@ public class PlayerManager : MonoBehaviour {
 		this.elements = new ElementList ();
 		this.timeOfLastShot = -1;
 		this.canShoot = true;
+
 	}
 	
 	// Update is called once per frame
@@ -65,6 +65,7 @@ public class PlayerManager : MonoBehaviour {
 				this.elements.AtLeastOneElementIsActive()) 
 		{			
 
+			playerAnimator.SetTrigger ("attack");
 			ProjectileController.StartNew(projectilePrefab, this.projectileSpawnPoint.position, projectileDirection, this.elements);
 			this.timeOfLastShot = Time.time;
 			this.elements.ResetElements ();
@@ -99,9 +100,9 @@ public class PlayerManager : MonoBehaviour {
 	{
 		SpriteRenderer[] elementActivationRendererList = this.elementActivationStatePanel.GetComponentsInChildren<SpriteRenderer> ();
 		Color[] activeElementColors = new Color[3];
-		activeElementColors[0] = Color.black;
-		activeElementColors[1] = Color.black;
-		activeElementColors[2] = Color.black;
+		activeElementColors [0] = Color.black;
+		activeElementColors [1] = Color.black;
+		activeElementColors [2] = Color.black;
 
 		foreach (ElementType activeElement in this.elements.getActiveElements()) 
 		{

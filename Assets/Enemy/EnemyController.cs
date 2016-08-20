@@ -59,15 +59,16 @@ public class EnemyController : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.tag == "Base")
-        {
+		if (coll.gameObject.tag == "Base") {
 
 			//[Sound]
-			SoundManager.Singleton.PlayBaseExplosion();
+			SoundManager.Singleton.PlayBaseExplosion ();
 			
-            Destroy(gameObject);
-            PlayerManager.Singleton.LoseALife();
-        }
+			Destroy (gameObject);
+			PlayerManager.Singleton.LoseALife ();
+		}
 
     }
+
+
 }
