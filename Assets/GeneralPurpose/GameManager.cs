@@ -1,4 +1,5 @@
 using System.Collections;
+using Assets._Library.Helpers;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
         Menu,
         Game
     }
+
+    public SpriteRenderer background;
 
     public static GameManager Singleton = null;
     //Static singleton of GameManager which allows it to be accessed by any other script.
@@ -74,12 +77,14 @@ public class GameManager : MonoBehaviour
     private void setScoreText()
     {
         _playerScoresText.text = "Score: " + _playerScore;
+        _playerScoresText.alignment = TextAnchor.UpperLeft;
+
     }
 
     public void StartGame()
     {
         _playerScore = 0;
-        _playerScoresText.text = "Score: " + _playerScore;
+        setScoreText();
         gameState = State.Game;
 
         _menuTransform.gameObject.SetActive(false);
@@ -90,10 +95,23 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         gameState = State.Menu;
-        _playerScoresText.text = "";
-        _menuTransform.gameObject.SetActive(true);
+        background.color = Color.red;
         EnemySpawner.Singleton.StopSpawing();
         EnemySpawner.Singleton.RemoveAllSpawned();
-        PlayerManager.Singleton.EndGame();
+
+        _playerScoresText.alignment = TextAnchor.UpperCenter;
+        _playerScoresText.text = "\nYou defended " + _playerScore + " blasts!\n\n You are a\n\nBLAST,\n\ndude!" ;
+        ActionHelper.PerformDelayedAction(8.0f, () =>
+        {
+            background.color = Color.white;
+            _menuTransform.gameObject.SetActive(true);
+            
+            PlayerManager.Singleton.EndGame();
+            _playerScoresText.text = "";
+
+        });
+        
+        
+       
     }
 }
