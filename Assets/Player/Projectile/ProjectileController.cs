@@ -6,17 +6,17 @@ public class ProjectileController : MonoBehaviour {
 	public float projectileSpeed = 1f;
 
 	Vector2 projectileDirection;
-	ElementList activeElementList;
+	ElementList elementList;
 	private Rigidbody2D rigidBody;
 
-	static public void StartNew(GameObject projectilePrefab,Vector3 projectileStartingPoint, Vector2 projectileDirection, ElementList activeElementList)
+	static public void StartNew(GameObject projectilePrefab,Vector3 projectileStartingPoint, Vector2 projectileDirection, ElementList elementList)
 	{
 		GameObject newProjectile = (GameObject)Instantiate (projectilePrefab, projectileStartingPoint, Quaternion.identity);
 		ProjectileController projectileController = newProjectile.GetComponent<ProjectileController> ();
 		projectileController.projectileDirection = projectileDirection;
-		projectileController.activeElementList = activeElementList;
+		projectileController.elementList = new ElementList(elementList.getActiveElements());
 		projectileController.Initialize ();
-		if (projectileController.activeElementList == null)
+		if (projectileController.elementList == null)
 			Debug.Log ("FUUUU1");
 	}
 
@@ -27,9 +27,9 @@ public class ProjectileController : MonoBehaviour {
 		Debug.Log (projectileDirection.ToString () + "   " + projectileSpeed.ToString ());
 
 		//[TEST]
-		if (this.activeElementList == null)
+		if (this.elementList == null)
 			Debug.Log ("FUUUU2");
-		ElementType colorTest = this.activeElementList.getFirstActiveElement();
+		ElementType colorTest = this.elementList.getFirstActiveElement();
 
 		SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 		switch (colorTest) 

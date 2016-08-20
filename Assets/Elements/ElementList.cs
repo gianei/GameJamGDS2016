@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,18 @@ public class ElementList {
 	{
 		this.elementActivationList = new bool[3];
 		this.ResetElements();
+	}
+
+	public ElementList(List<ElementType> activeElements)
+	{
+		this.elementActivationList = new bool[3];
+		this.ResetElements();
+
+		foreach (ElementType activeElement in activeElements) 
+		{
+			this.ActivateElement (activeElement);
+		}
+		
 	}
 
 	public void ActivateElement(ElementType elementToBeActivated)
@@ -112,6 +125,5 @@ public class ElementList {
 			}
 		}
 		return ElementType.A;
-	}
-	
+	}	
 }
