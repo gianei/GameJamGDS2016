@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _playerScoresText = GetComponentInChildren<Text>(true);
+
+		//[Sound]
+		SoundManager.Singleton.PlayBackgroundMusic();
     }
 
     // Update is called once per frame
