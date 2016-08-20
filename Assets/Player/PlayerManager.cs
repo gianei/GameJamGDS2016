@@ -6,6 +6,7 @@ public class PlayerManager : MonoBehaviour {
     public static PlayerManager Singleton = null;
 	public Animator playerAnimator;
 	public GameObject elementActivationStatePanel;
+    public GameObject lifesPanel;
     public GameObject projectilePrefab;
 	public Transform projectileSpawnPoint;
 	public float shotCooldown = 1f;
@@ -14,7 +15,7 @@ public class PlayerManager : MonoBehaviour {
 	float timeOfLastShot;
 	ElementList elements;
 
-    private int _lifes = 3;
+    private int _lifes = 0;
 
 
     //Awake is always called before any Start functions
@@ -45,17 +46,29 @@ public class PlayerManager : MonoBehaviour {
 		this.timeOfLastShot = -1;
 		this.canShoot = true;
 
+        elementActivationStatePanel.SetActive(false);
+        lifesPanel.SetActive(false);
+
+	    this.elements.ResetElements();
+        SetLifes();
+   
+
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if ((Time.time - this.timeOfLastShot >= shotCooldown) && canShoot == false) {
-			this.canShoot = true;
-			SoundManager.Singleton.PlayPowerRecharged ();
-		} else if (Time.time - this.timeOfLastShot < shotCooldown) {
-			this.canShoot = false;
-		}
+
+	    if ((Time.time - this.timeOfLastShot >= shotCooldown) && canShoot == false)
+	    {
+	        this.canShoot = true;
+	        SoundManager.Singleton.PlayPowerRecharged();
+	    }
+	    else if (Time.time - this.timeOfLastShot < shotCooldown)
+	    {
+	        this.canShoot = false;
+	    }
+	    
 	}
 		
 	void spawnProjectile(Vector2 projectileDirection)
@@ -132,7 +145,7 @@ public class PlayerManager : MonoBehaviour {
     {
         _lifes--;
 
-        SpriteRenderer[] lifeSprites = transform.FindChild("Lifes").GetComponentsInChildren<SpriteRenderer>();
+        SpriteRenderer[] lifeSprites = lifesPanel.GetComponentsInChildren<SpriteRenderer>();
         if (_lifes == 2)
             lifeSprites[2].enabled = false;
         if (_lifes == 1)
@@ -143,6 +156,30 @@ public class PlayerManager : MonoBehaviour {
             GameManager.Singleton.EndGame();
 
 
+    }
+
+    public void StartGame()
+    {
+        _lifes = 3;
+        SetLifes();
+
+        elementActivationStatePanel.SetActive(true);
+        lifesPanel.SetActive(true);
+    }
+
+    private void SetLifes()
+    {
+        SpriteRenderer[] lifeSprites = lifesPanel.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer spriteRenderer in lifeSprites)
+        {
+            spriteRenderer.enabled = true;
+        }
+    }
+
+    public void EndGame()
+    {
+        elementActivationStatePanel.SetActive(false);
+        lifesPanel.SetActive(false);
     }
 
 }

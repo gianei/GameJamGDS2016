@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class EnemySpawner : MonoBehaviour {
@@ -10,6 +10,9 @@ public class EnemySpawner : MonoBehaviour {
     public static EnemySpawner Singleton = null;
 
     private float _countTime = 0;
+
+    private bool _isSpawning = false;
+
 
     Transform leftmost;
     Transform rightmost;
@@ -43,18 +46,42 @@ public class EnemySpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        _countTime -= Time.deltaTime;
-        if (_countTime < 0)
-        {
-            SpawnEnemy();
-            _countTime = 3;
-        }
-    }
+	    if (_isSpawning)
+	    {
+	        _countTime -= Time.deltaTime;
+	        if (_countTime < 0)
+	        {
+	            SpawnEnemy();
+	            _countTime = 3;
+	        }
+	    }
+	}
 
     void SpawnEnemy()
     {
         Vector3 spawnPosition = new Vector3(Random.Range(leftmost.position.x, rightmost.position.x), transform.position.y, 0);
 
         Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity);
+    }
+
+    public void StartSpawning()
+    {
+        _isSpawning = true;
+        _countTime = 1;
+    }
+
+    public void StopSpawing()
+    {
+        _isSpawning = false;
+        _countTime = 0;
+    }
+
+    public void RemoveAllSpawned()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            Destroy(enemy);
+        }
     }
 }
