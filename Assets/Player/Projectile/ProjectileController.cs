@@ -2,14 +2,17 @@ using UnityEngine;
 using System.Collections;
 
 public class ProjectileController : MonoBehaviour {
+    public float InitialSpeed = 4f;
+    public float SpeedChange = 2;
+    public float ScaleChange = 0.004f;
 
-	public float projectileSpeed = 1f;
-
-	Vector2 projectileDirection;
+    Vector2 projectileDirection;
 	ElementList elementList;
-	private Rigidbody2D rigidBody;
+	private Rigidbody2D _rigidBody;
 
-	static public void StartNew(GameObject projectilePrefab,Vector3 projectileStartingPoint, Vector2 projectileDirection, ElementList elementList)
+    private float _scale = 1;
+
+    static public void StartNew(GameObject projectilePrefab,Vector3 projectileStartingPoint, Vector2 projectileDirection, ElementList elementList)
 	{
 		GameObject newProjectile = (GameObject)Instantiate (projectilePrefab, projectileStartingPoint, Quaternion.identity);
 		ProjectileController projectileController = newProjectile.GetComponent<ProjectileController> ();
@@ -22,9 +25,8 @@ public class ProjectileController : MonoBehaviour {
 
 	void Initialize()
 	{
-		rigidBody = GetComponent<Rigidbody2D>();
-		rigidBody.velocity = projectileDirection * projectileSpeed;
-		Debug.Log (projectileDirection.ToString () + "   " + projectileSpeed.ToString ());
+		_rigidBody = GetComponent<Rigidbody2D>();
+		_rigidBody.velocity = projectileDirection * InitialSpeed;
 
 		//[TEST]
 		if (this.elementList == null)
@@ -62,11 +64,22 @@ public class ProjectileController : MonoBehaviour {
 	
 	}
 
-    void OnCollisionEnter2D(Collision2D coll)
+    void FixedUpdate()
+    {
+        _scale -= ScaleChange;
+
+        gameObject.transform.localScale = Vector3.one * _scale;
+        _rigidBody.AddForce(-_rigidBody.velocity.normalized * SpeedChange);
+
+        if (_scale < 0)
+            DestroyMe();
+    }
+
+    void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.tag == "Enemy")
         {
-            Destroy(gameObject);
+            DestroyMe();
             Debug.Log(elementList.getFirstActiveElement());
             Debug.Log(coll.gameObject.GetComponent<EnemyController>().Type);
 
@@ -76,5 +89,10 @@ public class ProjectileController : MonoBehaviour {
 
         }
 
+    }
+
+    private void DestroyMe()
+    {
+        Destroy(gameObject);
     }
 }
