@@ -2,9 +2,12 @@ using UnityEngine;
 using System.Collections;
 
 public class ProjectileController : MonoBehaviour {
+	
+	public GameObject trail;
     public float InitialSpeed = 4f;
     public float SpeedChange = 2;
     public float ScaleChange = 0.004f;
+
 
     Vector2 projectileDirection;
 	ElementList elementList;
@@ -51,6 +54,11 @@ public class ProjectileController : MonoBehaviour {
 		default:
 			break;
 		}
+			
+
+		Vector2 trailPosition = new Vector2 (gameObject.transform.position.x, gameObject.transform.position.y-2f);
+		GameObject trailInstantiation = (GameObject) Instantiate (trail, gameObject.transform.position, Quaternion.FromToRotation (new Vector2 (1f, 0f), this.projectileDirection));
+		trailInstantiation.transform.parent = gameObject.transform;
 		
 	}
 
