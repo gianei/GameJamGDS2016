@@ -10,6 +10,8 @@ public class PlayerManager : MonoBehaviour {
 	public Transform projectileSpawnPoint;
 	public float shotCooldown = 1f;
 
+
+	bool canShoot;
 	float timeOfLastShot;
 	ElementList elements;
 
@@ -42,12 +44,18 @@ public class PlayerManager : MonoBehaviour {
 	{
 		this.elements = new ElementList ();
 		this.timeOfLastShot = -1;
+		this.canShoot = true;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		if ((Time.time - this.timeOfLastShot >= shotCooldown) && canShoot == false) {
+			this.canShoot = true;
+			SoundManager.Singleton.PlayPowerRecharged ();
+		} else if (Time.time - this.timeOfLastShot < shotCooldown) {
+			this.canShoot = false;
+		}
 	}
 		
 	void spawnProjectile(Vector2 projectileDirection)
@@ -60,6 +68,9 @@ public class PlayerManager : MonoBehaviour {
 			ProjectileController.StartNew(projectilePrefab, this.projectileSpawnPoint.position, projectileDirection, this.elements);
 			this.timeOfLastShot = Time.time;
 			this.elements.ResetElements ();
+
+			//[SOUND]
+			SoundManager.Singleton.PlayElementFire(this.elements.getFirstActiveElement());
 		}
 	}
 

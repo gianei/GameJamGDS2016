@@ -87,6 +87,8 @@ public class ProjectileController : MonoBehaviour {
             {
                 Destroy(coll.gameObject);
                 GameManager.Singleton.PlayerHitEnemyCorrect();
+				//[Sound]
+				SoundManager.Singleton.PlayElementExplosion(elementList.getFirstActiveElement());
             }
           
 

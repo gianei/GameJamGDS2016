@@ -61,6 +61,10 @@ public class EnemyController : MonoBehaviour {
     {
         if (coll.gameObject.tag == "Base")
         {
+
+			//[Sound]
+			SoundManager.Singleton.PlayBaseExplosion();
+			
             Destroy(gameObject);
             PlayerManager.Singleton.LoseALife();
         }
