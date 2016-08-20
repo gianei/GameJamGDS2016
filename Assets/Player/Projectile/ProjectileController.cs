@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ProjectileController : MonoBehaviour {
@@ -23,34 +23,33 @@ public class ProjectileController : MonoBehaviour {
 	void Initialize()
 	{
 		rigidBody = GetComponent<Rigidbody2D>();
-		rigidBody.velocity = projectileDirection * 1f;
+		rigidBody.velocity = projectileDirection * projectileSpeed;
 		Debug.Log (projectileDirection.ToString () + "   " + projectileSpeed.ToString ());
 
 		//[TEST]
 		if (this.activeElementList == null)
 			Debug.Log ("FUUUU2");
 		ElementType colorTest = this.activeElementList.getFirstActiveElement();
-		if (colorTest != null) 
+
+		SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+		switch (colorTest) 
 		{
-			SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-			switch (colorTest) 
-			{
-			case ElementType.A:
-				spriteRenderer.color = Color.blue;
-				break;
+		case ElementType.A:
+			spriteRenderer.color = Color.blue;
+			break;
 
-			case ElementType.B:
-				spriteRenderer.color = Color.red;
-				break;
+		case ElementType.B:
+			spriteRenderer.color = Color.red;
+			break;
 
-			case ElementType.C:
-				spriteRenderer.color = Color.green;
-				break;
+		case ElementType.C:
+			spriteRenderer.color = Color.green;
+			break;
 
-			default:
-				break;
-			}
+		default:
+			break;
 		}
+		
 	}
 
 	// Use this for initialization

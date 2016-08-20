@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -104,15 +104,10 @@ public class ElementList {
 				{
 				case 0:
 					return ElementType.A;
-					break;
 				case 1:
 					return  ElementType.B;
-					break;
 				case 2:
 					return  ElementType.C;
-					break;
-				default:
-					break;
 				}
 			}
 		}
