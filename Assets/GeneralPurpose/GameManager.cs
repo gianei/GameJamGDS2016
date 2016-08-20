@@ -1,6 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class GameManager : MonoBehaviour
     //Static singleton of GameManager which allows it to be accessed by any other script.
 
 
-    
+    private Text _playerLifesText;
+    private int _playerLifes = 5;
 
     //Awake is always called before any Start functions
     void Awake()
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        _playerLifesText = GetComponentInChildren<Text>(true);
     }
 
     // Update is called once per frame
@@ -45,6 +48,9 @@ public class GameManager : MonoBehaviour
 
     public void EnemyHitBase()
     {
+        _playerLifes--;
+        _playerLifesText.text = "Lifes: " + _playerLifes;
+        
         Debug.Log("Enemy Hit!");
     }
 }
