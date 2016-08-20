@@ -64,7 +64,7 @@ public class PlayerManager : MonoBehaviour {
 
 	public void FireProjectile(Vector3 mousePosition)
 	{
-		Debug.Log ("CLICK:" + mousePosition);
+		//Debug.Log ("CLICK:" + mousePosition);
 		Vector2 projectileDirection = new Vector2 (mousePosition.x - projectileSpawnPoint.position.x,
 			                              mousePosition.y - projectileSpawnPoint.position.y);
 		projectileDirection.Normalize ();

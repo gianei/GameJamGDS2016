@@ -61,4 +61,20 @@ public class ProjectileController : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "Enemy")
+        {
+            Destroy(gameObject);
+            Debug.Log(elementList.getFirstActiveElement());
+            Debug.Log(coll.gameObject.GetComponent<EnemyController>().Type);
+
+            if (coll.gameObject.GetComponent<EnemyController>().Type == elementList.getFirstActiveElement())
+                Destroy(coll.gameObject);
+
+
+        }
+
+    }
 }

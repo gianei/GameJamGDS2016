@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour {
     private Rigidbody2D Rigidbody;
     private SpriteRenderer SpriteRenderer;
 
-    private ElementType _type;
+    public ElementType Type { get; private set; }
 
     private float _scale = 0;
     
@@ -28,15 +28,15 @@ public class EnemyController : MonoBehaviour {
         {
             case 0:
                 SpriteRenderer.color = Color.blue;
-                _type = ElementType.A;
+                Type = ElementType.A;
                 break;
             case 1:
                 SpriteRenderer.color = Color.red;
-                _type = ElementType.B;
+                Type = ElementType.B;
                 break;
             case 2:
                 SpriteRenderer.color = Color.green;
-                _type = ElementType.C;
+                Type = ElementType.C;
                 break;
         }
 
