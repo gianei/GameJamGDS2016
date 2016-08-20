@@ -4,10 +4,6 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-
-
-   
-
     public void MenuStart()
     {
         GameManager.Singleton.StartGame();

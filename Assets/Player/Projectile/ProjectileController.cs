@@ -36,7 +36,7 @@ public class ProjectileController : MonoBehaviour {
 			Debug.Log ("FUUUU2");
 		ElementType colorTest = this.elementList.getFirstActiveElement();
 
-		SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+		SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		switch (colorTest) 
 		{
 		case ElementType.A:
